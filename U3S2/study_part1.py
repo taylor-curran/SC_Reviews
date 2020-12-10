@@ -70,6 +70,9 @@ SELECT * FROM students LIMIT 5;
 
 # Excecute Query
 response = curs.execute(Q_GET_ALL_FROM_NEW_TABLE).fetchall()
+# In the responses you might see that before each string there
+# a u (u'string1', u'string2') <- Like so
+# Apparantly this just stands for Unicode and should not be an issue.
 
 # Print Response
 print("--- SELECT * RESPONSE ---")
