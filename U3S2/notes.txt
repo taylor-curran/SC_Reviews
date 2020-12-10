@@ -1,0 +1,8 @@
+Top of Repo:
+https://github.com/bundickm/Study-Guides
+
+Find DB:
+https://github.com/bundickm/Study-Guides/blob/master/data/Chinook_Sqlite.sqlite
+
+Schema:
+https://github.com/bundickm/Study-Guides/blob/master/data/Chinook%20Schema.png

@@ -46,7 +46,7 @@ student_data = (('Lion-O', 'True', 85, 24, 'Male'),
 # ? is the placeholder value for SQLite
 Q_INSERT_ROWS_INTO_STUDENTS = """
 INSERT INTO students(student, studied, grade, age, sex)
-VALUES (?, ?, ?, ?, ?);
+VALUES (?, ?, ?, ?, ?); 
     """
 
 # In the Excecute method, you can pass values as a second argument
