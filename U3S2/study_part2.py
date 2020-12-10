@@ -7,9 +7,15 @@ db_path = 'Study_Guides_Distribute_Repo/data/Chinook_Sqlite.sqlite'
 conn = sqlite3.connect(db_path)
 curs = conn.cursor()
 
+print("\n\n\nConnection to DB Established.")
+print("Cursor Instantiated")
+
 # Test Connection
 response = curs.execute("SELECT * FROM Track;").fetchone()
-print(response)
+if response == "(1, u'For Those About To Rock (We Salute You)', 1, 1, 1, u'Angus Young, Malcolm Young, Brian Johnson', 343719, 11170334, 0.99)":
+    print("Connection Test Passed.")
+
+print("\n\n-------- START OF QUERIE RESULTS --------\n")
 
 # ----- Single Table Queries -----
 # 1. Find the average invoice total for each customer, 
@@ -116,16 +122,22 @@ GROUP BY Customer.SupportRepId;
 n_customers_e_employee = curs.execute(Q9).fetchall()
 print("\n--- Number of Customers for Each Employee ---")
 print(n_customers_e_employee)
+
+
 # 10. Return the first and last name of each employee and 
 # who they report to​
 Q10 = """
-SELECT FirstName, LastName, ReportsTo 
-FROM Employee
-INNER JOIN Employee ON Employee.EmployeeId = Employee.ReportsTo;
+SELECT FirstName, LastName, ReportsTo FROM Employee;
       """
-#report_relationship = curs.execute(Q10).fetchall()
+report_relationship = curs.execute(Q10).fetchall()
 print("\n--- Who Reports to Who ---")
-#print(report_relationship)
+print(report_relationship)
+
+# I still need to figure out how to make this work so that it 
+# outputs names instead of employeeID numbers for who reports
+# to whome.
 
 curs.close()
 conn.close()
+print("Connection and Cusor Closed")
+print("-------- END OF QUERIE RESULTS --------")
