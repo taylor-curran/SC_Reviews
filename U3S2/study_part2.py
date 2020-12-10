@@ -106,12 +106,16 @@ print(spent_over_20)
 # If the customer count is 0 for an employee, 
 # it doesn't need to be displayed. 
 # Order the employees from most to least customers.
-# Q9 = """
-# SELECT Employee.FirstName, Employee.LastName, Employee.Title, Employee
-#      """
-# n = curs.execute(Q9).fetchall()
-# print("\n--- n ---")
-# print(n)
+Q9 = """
+SELECT Employee.FirstName, Employee.LastName, Employee.Title,
+COUNT(Customer.SupportRepId) 
+FROM Customer
+INNER JOIN Employee ON Employee.EmployeeId = Customer.SupportRepId
+GROUP BY Customer.SupportRepId;
+     """
+n_customers_e_employee = curs.execute(Q9).fetchall()
+print("\n--- Number of Customers for Each Employee ---")
+print(n_customers_e_employee)
 # 10. Return the first and last name of each employee and 
 # who they report to​
 Q10 = """
@@ -119,9 +123,9 @@ SELECT FirstName, LastName, ReportsTo
 FROM Employee
 INNER JOIN Employee ON Employee.EmployeeId = Employee.ReportsTo;
       """
-report_relationship = curs.execute(Q10).fetchall()
+#report_relationship = curs.execute(Q10).fetchall()
 print("\n--- Who Reports to Who ---")
-print(report_relationship)
+#print(report_relationship)
 
 curs.close()
 conn.close()
