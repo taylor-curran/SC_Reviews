@@ -127,7 +127,14 @@ print(n_customers_e_employee)
 # 10. Return the first and last name of each employee and 
 # who they report to​
 Q10 = """
-SELECT FirstName, LastName, ReportsTo FROM Employee;
+SELECT FirstName, LastName, ReportsTo, 
+FN, LN FROM 
+(Employee AS one 
+INNER JOIN 
+(SELECT FirstName AS FN, 
+LastName AS LN, EmployeeId 
+AS EMPLID FROM Employee) 
+ON ReportsTo=EMPLID)
       """
 report_relationship = curs.execute(Q10).fetchall()
 print("\n--- Who Reports to Who ---")
