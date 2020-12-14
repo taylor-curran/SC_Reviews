@@ -43,14 +43,14 @@ print(us_customers)
 
 # 3. Which employee does not report to anyone?
 Q3 = """
-SELECT FirstName, LastName FROM Employee
-WHERE ReportsTo iS NULL;
+SELECT FirstName, LastName, Title FROM Employee
+WHERE ReportsTo IS NULL;
 """
 mr_no_boss= curs.execute(Q3).fetchone()
 print("\n--- Reports to None ---")
 print(mr_no_boss)
 
-# 4. Find the number of unique composers
+# 4. Find the number of unique composers.
 Q4 = """
 SELECT COUNT(DISTINCT Composer) FROM Track;
      """
@@ -72,6 +72,7 @@ print(n_rows_track)
 # INNER JOIN B on B.f = A.f;
 
 # 6. Get the name of all Black Sabbath tracks and the albums they came off of
+# SELECT COUNT(DISTINCT Track.Name) == 17 For Balck Sabbath (In case you want to check)
 Q6 = """
 SELECT Track.Name, Album.Title FROM Track
 INNER JOIN Album ON Album.AlbumId = Track.AlbumId
