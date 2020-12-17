@@ -7,6 +7,12 @@ name = "pypi"
 jupyterlab = "*"
 install = "*"
 ipykernel = "*"
+flask = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+flask-sqlalchemy = "*"
+numpy = "*"
+pandas = "*"
 
 [dev-packages]
 
