@@ -16,7 +16,7 @@ import numpy as np
 # a minimum: id (integer), name (string), and max_players (integer)
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test2.db'
 
 # -- Define Tables --
 
@@ -44,25 +44,13 @@ class Game(db.Model):
     def __repr__self(self):
         return '<Game %r>' % self.name
 
-
-# Populate DB
-# for index in n_rows in df
-
-for i in range(df.shape[1]):
-    df_row = df.iloc[i]
-    alch_row = Game(game_id=int(df_row[0]), 
-                    name=str(df_row[1]), 
-                    min_players=int(df_row[2]),
-                    max_players=int(df_row[3]), 
-                    playing_time=float(df_row[4]), 
-                    description=str(df_row[5]), 
-                    game_mechanics=str(df_row[6]))
-    db.session.add(alch_row)
-    db.session.commit()
+# Create All during 1st Request to
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 @app.route("/")
 def hello_world():
-    db.create_all()
     return 'Hello World!'
 
 @app.route("/reset")
@@ -70,4 +58,28 @@ def reset():
     db.drop_all()
     db.create_all()
     return "Reset Complete!"
+
+@app.route("/populate_table")
+def populate_table():
+    # Populate DB
+    # for index in n_rows in df
+    for i in range(df.shape[1]):
+        df_row = df.iloc[i]
+        alch_row = Game(game_id=int(df_row[0]), 
+                        name=str(df_row[1]), 
+                        min_players=int(df_row[2]),
+                        max_players=int(df_row[3]), 
+                        playing_time=float(df_row[4]), 
+                        description=str(df_row[5]), 
+                        game_mechanics=str(df_row[6]))
+        db.session.add(alch_row)
+        db.session.commit()
+    return 'Table Populated!'
+
+@app.route("/display_table_contents")
+def display_table_contents():
+    return str(Game.query.all())
+
+
+
 
