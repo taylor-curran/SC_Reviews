@@ -26,7 +26,8 @@ soup = bs4.BeautifulSoup(result.text, features='lxml')
 
 column_names = ['game_id', 
                 'name', 
-                'min_max_players', 
+                'min_players',
+                'max_players', 
                 'playing_time',
                 'description', 
                 'game_mechanics']
@@ -42,7 +43,7 @@ for game_id in range(1, 11):
         game_id,
         soup.find('name').text,
         int(soup.find('minplayers').text), 
-        int(soup.find('minplayers').text),
+        int(soup.find('maxplayers').text),
         int(soup.find('playingtime').text),
         soup.find('description').text,
         soup.find('boardgamemechanic').text
