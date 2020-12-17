@@ -45,9 +45,9 @@ class Game(db.Model):
         return '<Game %r>' % self.name
 
 # Create All during 1st Request to
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 @app.route("/")
 def hello_world():
@@ -57,6 +57,7 @@ def hello_world():
 def reset():
     db.drop_all()
     db.create_all()
+    db.session.commit()
     return "Reset Complete!"
 
 @app.route("/populate_table")
@@ -73,7 +74,7 @@ def populate_table():
                         description=str(df_row[5]), 
                         game_mechanics=str(df_row[6]))
         db.session.add(alch_row)
-        db.session.commit()
+    db.session.commit()
     return 'Table Populated!'
 
 @app.route("/display_table_contents")
