@@ -22,9 +22,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test2.db'
 
 db = SQLAlchemy(app)
 
+# ?- How to Interact with this Class from Flask Shell? -?
 class Game(db.Model):
-    #id = db.Column(db.BigInteger, primary_key=True)
-    game_id = db.Column(db.Integer, primary_key=True)
+    # ?- How to have an auto genterating id? -?
+    id = db.Column(db.BigInteger, primary_key=True)
+    game_id = db.Column(db.Integer)
     name = db.Column(db.String(200))
     min_players = db.Column(db.Integer)
     max_players = db.Column(db.Integer)
@@ -32,6 +34,7 @@ class Game(db.Model):
     description = db.Column(db.String(600))
     game_mechanics = db.Column(db.String(200))
 
+    # ?- Do I need this __init__ function -?
     def __init__(self, game_id, name, min_players, max_players, playing_time, description, game_mechanics):
         self.game_id = game_id
         self.name = name
@@ -44,6 +47,7 @@ class Game(db.Model):
     def __repr__self(self):
         return '<Game %r>' % self.name
 
+# ?- Should I have This -?
 # Create All during 1st Request to
 # @app.before_first_request
 # def create_tables():
@@ -64,7 +68,8 @@ def reset():
 def populate_table():
     # Populate DB
     # for index in n_rows in df
-    for i in range(df.shape[1]):
+    for i in range(df.shape[0]):
+        # ?- How to have an auto genterating id? -?
         df_row = df.iloc[i]
         alch_row = Game(game_id=int(df_row[0]), 
                         name=str(df_row[1]), 
@@ -77,6 +82,11 @@ def populate_table():
     db.session.commit()
     return 'Table Populated!'
 
+# TODO: Add Route for Someone to Add Game to Table
+
+# https://stackoverflow.com/questions/38495291/sqlalchemy-not-returning-all-rows-when-querying-table-object-but-returns-all-ro
+
+# ?- Not Sure Why this Display is Empty!! -?
 @app.route("/display_table_contents")
 def display_table_contents():
     return str(Game.query.all())

@@ -23,6 +23,7 @@ soup = bs4.BeautifulSoup(result.text, features='lxml')
 
 # Docs: https://boardgamegeek.com/wiki/page/BGG_XML_API&redirectedfrom=XML_API#
 
+tags = [tag.name for tag in soup.find_all()]
 
 column_names = ['game_id', 
                 'name', 
@@ -33,6 +34,7 @@ column_names = ['game_id',
                 'game_mechanics']
 
 rows = []
+
 base_url = 'http://www.boardgamegeek.com/xmlapi/boardgame/'
 
 for game_id in range(1, 11):

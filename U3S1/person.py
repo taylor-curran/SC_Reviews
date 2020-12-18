@@ -32,6 +32,9 @@ class Person:
         
         return f'{self.profession} ^{self.promotion_level}'
 
+    def __repr__(self):
+        return f'Person Object: {self.name}'
+
 class Worker(Person):
     def __init__(self, name, age, height, profession, 
                  company, job_title, personal_title, 
