@@ -63,6 +63,8 @@ print("Rows Successfully Inserted")
 
 # --- Check on the Success of the Insertion ---
 
+print("--- Query to Check that ETL was Successful ---")
+
 # Get 5 Rows from New Table, Students
 Q_GET_ALL_FROM_NEW_TABLE = """
 SELECT * FROM students LIMIT 5;
